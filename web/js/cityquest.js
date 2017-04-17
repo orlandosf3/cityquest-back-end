@@ -212,7 +212,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $stateParams, $state, $
 
     $scope.updateStaticMap = function () {
         //$scope.staticImage =  "https://maps.googleapis.com/maps/api/staticmap?center="+ $scope.coordinates['startpoint'].lat + ","+ $scope.coordinates['startpoint'].lng  +"&zoom="+ $scope.zoomLevelStatic +"&size=300x400&maptype=roadmap &markers=color:blue%7Clabel:S%7C"+ $scope.coordinates['startpoint'].lat + ","+ $scope.coordinates['endpoint'].lng  +"&markers=color:green%7Clabel:G%7C"+ $scope.coordinates['endpoint'].lat + ","+ $scope.coordinates['startpoint'].lng  +"";
-        $scope.staticImage = "https://maps.googleapis.com/maps/api/staticmap?path=" + encodeURIComponent($scope.coordinates['startpoint'].lat + "," + $scope.coordinates['startpoint'].lng + "|" + $scope.coordinates['endpoint'].lat + "," + $scope.coordinates['endpoint'].lng) + "&size=1000x800";
+        $scope.staticImage = "https://maps.googleapis.com/maps/api/staticmap?key=AIzaSyCyihh8NARXuj_GDlx1Ih_s0F3ZviPTuFU&path=" + encodeURIComponent($scope.coordinates['startpoint'].lat + "," + $scope.coordinates['startpoint'].lng + "|" + $scope.coordinates['endpoint'].lat + "," + $scope.coordinates['endpoint'].lng) + "&size=1000x800";
     }
 
     $scope.zoomStaticMap = function (value) {
