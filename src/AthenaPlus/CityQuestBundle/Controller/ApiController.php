@@ -29,7 +29,8 @@ class ApiController extends Controller
 
     public function __construct()
     {
-        $this->appUrl = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'];
+        $scheme = ! empty($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443 ? 'https' : 'http';
+        $this->appUrl = $scheme . '://' . $_SERVER['HTTP_HOST'];
     }
 
     public function updateAction(Request $request,  Quest $quest)
@@ -219,7 +220,7 @@ class ApiController extends Controller
         $new_items = array ();
 	if (is_array ($orderedQuest['details']['items'])) {
 		$orderedQuest['details']['items'] = json_encode ($orderedQuest['details']['items']);
-	} 
+	}
         foreach (json_decode ($orderedQuest['details']['items'], true) as $item) {
             $img_loc = $item['image'];
             if($item['image'] !== null && file_exists($img_loc)) {
