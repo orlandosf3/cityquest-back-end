@@ -210,7 +210,7 @@ class ApiController extends Controller
         $orderedQuest['details']['contact']['telephone'] = $quest->getTelephoneNumber();
 
         $orderedQuest['details']['map']['zoom'] = $quest->getZoomLevelStaticMap();
-        $orderedQuest['details']['map']['url'] = $quest->getStaticMap();
+        $orderedQuest['details']['map']['url'] = $this->appUrl . '/' . $quest->getStaticMap();
         // these are json objects
         $orderedQuest['details']['map']['startpoint'] = $quest->getStartpoint();
         $orderedQuest['details']['map']['endpoint'] = $quest->getEndpoint();
