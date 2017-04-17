@@ -20,10 +20,18 @@ use Symfony\Component\Config\Definition\Exception\Exception;
 class ApiController extends Controller
 {
     protected $allowable_tags = '<p><b><u><strong><em><i><br><br/>';
+
+    private $appUrl = '';
     /**
      * updates Quest
      *
      */
+
+    public function __construct()
+    {
+        $this->appUrl = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'];
+    }
+
     public function updateAction(Request $request,  Quest $quest)
     {
         //print_r($request->get('data')); die;
@@ -182,7 +190,7 @@ class ApiController extends Controller
     // todo dit moet naar service: http://symfony.com/doc/current/book/service_container.html of via
     // http://symfony.com/doc/current/cookbook/form/data_transformers.html
     protected function orderQuest(Quest $quest){
-	$orderedQuest['cityquestProvider'] = array ('url' => 'http://cityquest.be');
+	$orderedQuest['cityquestProvider'] = array ('url' => $this->appUrl);
         $orderedQuest['details']['id'] = $quest->getId();
         $orderedQuest['details']['name'] = $quest->getTitle();
         $orderedQuest['details']['organisation'] = $quest->getNameOrganisation();
@@ -195,7 +203,7 @@ class ApiController extends Controller
         $orderedQuest['details']['status'] = $quest->getStatus();
 
         $orderedQuest['details']['imageFile'] = $quest->getFrontImage();
-        $orderedQuest['details']['remote_imageFile'] = 'http://cityquest.be/'.$orderedQuest['details']['imageFile'];
+        $orderedQuest['details']['remote_imageFile'] = $this->appUrl . '/' . $orderedQuest['details']['imageFile'];
         $orderedQuest['details']['contact']['name'] = $quest->getContactPerson();
         $orderedQuest['details']['contact']['email'] = $quest->getEmailAddress();
         $orderedQuest['details']['contact']['telephone'] = $quest->getTelephoneNumber();
@@ -221,14 +229,14 @@ class ApiController extends Controller
                 if (isset ($item['64_image'])) {
                     unset ($item['64_image']);
                 }
-                $item['remote_image'] = 'http://cityquest.be/'.$item['image'];
+                $item['remote_image'] = $this->appUrl . '/' . $item['image'];
             }
             $new_hints = array ();
             foreach ($item['hints'] as $hint) {
                 if (isset ($hint['64_image'])) {
                     unset ($hint['64_image']);
                 }
-                $hint['remote_image'] = 'http://cityquest.be/'.$hint['image'];
+                $hint['remote_image'] = $this->appUrl . '/' . $hint['image'];
                 array_push ($new_hints, $hint);
             }
             $item['hints'] = $new_hints;
